@@ -7,6 +7,7 @@ import screen.AuthorizationScreen;
 import static io.qameta.allure.Allure.step;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@DisplayName("Тестирование экрана авторизации")
 public class AuthorizationPageTests extends TestBase {
 
     AuthorizationScreen authScreen = new AuthorizationScreen();

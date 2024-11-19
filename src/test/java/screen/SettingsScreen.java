@@ -25,7 +25,7 @@ public class SettingsScreen {
         return this;
     }
 
-    @Step("Установить {0} для поля 'Код устройства' ")
+    @Step("Установить '{0}' для поля 'Код устройства' ")
     public SettingsScreen setDeviceId(String value) {
         DEVICE_ID_ELEMENT.sendKeys(value);
         return this;
