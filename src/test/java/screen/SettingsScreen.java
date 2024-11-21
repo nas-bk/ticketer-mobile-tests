@@ -1,9 +1,9 @@
 package screen;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 
+import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Selenide.$;
 import static io.appium.java_client.AppiumBy.className;
 import static io.appium.java_client.AppiumBy.id;
@@ -25,7 +25,7 @@ public class SettingsScreen {
         return this;
     }
 
-    @Step("Установить '{0}' для поля 'Код устройства' ")
+    @Step("Установить {0} для поля 'Код устройства' ")
     public SettingsScreen setDeviceId(String value) {
         DEVICE_ID_ELEMENT.sendKeys(value);
         return this;
@@ -43,19 +43,15 @@ public class SettingsScreen {
         return this;
     }
 
-    @Step("Нажать на конпку 'Проверить обновления' ")
+    @Step("Нажать на кнопку 'Проверить обновления' ")
     public SettingsScreen clickUpdateBtn() {
         UPDATE_APP_BUTTON.click();
         return this;
     }
 
+    @Step("Нажать на кнопку 'Сохранить' ")
     public SettingsScreen clickSaveBtn() {
-        SAVE_SETTINGS_BUTTON.click();
-        return this;
-    }
-
-    public SettingsScreen checkSaveButIsEnabled() {
-        SAVE_SETTINGS_BUTTON.shouldBe(Condition.enabled);
+        SAVE_SETTINGS_BUTTON.shouldBe(enabled).click();
         return this;
     }
 }

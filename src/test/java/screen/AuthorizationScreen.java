@@ -24,7 +24,6 @@ public class AuthorizationScreen {
                 .setDeviceId(device)
                 .setApiKey(key)
                 .setParkId(park)
-                .checkSaveButIsEnabled()
                 .clickSaveBtn();
         return this;
     }

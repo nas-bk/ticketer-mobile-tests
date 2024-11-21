@@ -1,5 +1,9 @@
 package tests;
 
+import io.qameta.allure.Feature;
+import io.qameta.allure.Owner;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import screen.AuthorizationScreen;
@@ -7,7 +11,7 @@ import screen.AuthorizationScreen;
 import static io.qameta.allure.Allure.step;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DisplayName("Тестирование экрана авторизации")
+@Feature("Тестирование экрана авторизации")
 public class AuthorizationPageTests extends TestBase {
 
     AuthorizationScreen authScreen = new AuthorizationScreen();
@@ -16,7 +20,9 @@ public class AuthorizationPageTests extends TestBase {
             ERROR_TITLE = "Ошибка";
 
     @Test
-    @DisplayName("Проверить авторизацию с неверными данными")
+    @Owner("Bochkareva Anastasia")
+    @Severity(SeverityLevel.BLOCKER)
+    @DisplayName("Тестирование авторизации с неверным логином и паролем")
     void unsuccessfulAuthorizationTest() {
         authScreen.setSettings(
                         testData.baseUrl,
@@ -27,9 +33,9 @@ public class AuthorizationPageTests extends TestBase {
                 .setEmployeePassword(testData.employeePassword)
                 .clickLoginButton();
 
-        step("Проверить, что открылся popup", () ->
+        step("Проверить открытие popup", () ->
                 assertThat(authScreen.LOGIN_POPUP.isDisplayed()).isTrue());
-        step("Проверить, что в popup содержится текст ошибки", () -> {
+        step("Проверить наличие текста ошибки в popup", () -> {
             assertThat(authScreen.ERROR_DIALOG_TITLE.getText())
                     .isEqualTo(ERROR_TITLE);
             assertThat(authScreen.DIALOG_MESSAGE.getText())
@@ -38,8 +44,10 @@ public class AuthorizationPageTests extends TestBase {
     }
 
     @Test
-    @DisplayName("Проверить авторизацию с пустыми данными")
-    void unsuccessfulAuthorization2Test() {
+    @Owner("Bochkareva Anastasia")
+    @Severity(SeverityLevel.BLOCKER)
+    @DisplayName("Тестирование авторизации с пустыми значениями логина и пароля")
+    void unsuccessfulAuthWithEmptyDataTest() {
         authScreen.setSettings(
                         testData.baseUrl,
                         testData.deviceId,
