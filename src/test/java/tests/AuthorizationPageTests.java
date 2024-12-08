@@ -9,15 +9,10 @@ import org.junit.jupiter.api.Test;
 import screen.AuthorizationScreen;
 
 import static io.qameta.allure.Allure.step;
-import static org.assertj.core.api.Assertions.assertThat;
 
 @Feature("Тестирование экрана авторизации")
 public class AuthorizationPageTests extends TestBase {
-
-    AuthorizationScreen authScreen = new AuthorizationScreen();
-    private static final String
-            ERROR_TEXT = "Неверные данные для входа. Попробуйте войти в профиль еще раз или обратитесь к администратору.",
-            ERROR_TITLE = "Ошибка";
+    final AuthorizationScreen authScreen = new AuthorizationScreen();
 
     @Test
     @Owner("Bochkareva Anastasia")
@@ -25,22 +20,19 @@ public class AuthorizationPageTests extends TestBase {
     @DisplayName("Тестирование авторизации с неверным логином и паролем")
     void unsuccessfulAuthorizationTest() {
         authScreen.setSettings(
-                        testData.baseUrl,
-                        testData.deviceId,
-                        testData.apiKey,
-                        testData.parkId)
-                .setEmployeePhone(testData.employeePhone)
-                .setEmployeePassword(testData.employeePassword)
+                        settingsData.getBaseUrl(),
+                        settingsData.getDeviceId(),
+                        settingsData.getKey(),
+                        settingsData.getParkId())
+                .setEmployeePhone(settingsData.getEmployee().getPhone())
+                .setEmployeePassword(settingsData.getEmployee().getPassword())
                 .clickLoginButton();
 
         step("Проверить открытие popup", () ->
-                assertThat(authScreen.LOGIN_POPUP.isDisplayed()).isTrue());
-        step("Проверить наличие текста ошибки в popup", () -> {
-            assertThat(authScreen.ERROR_DIALOG_TITLE.getText())
-                    .isEqualTo(ERROR_TITLE);
-            assertThat(authScreen.DIALOG_MESSAGE.getText())
-                    .isEqualTo(ERROR_TEXT);
-        });
+                authScreen.checkPopupIsDisplayed());
+        step("Проверить наличие текста ошибки в popup", () ->
+                authScreen.checkErrorText());
+
     }
 
     @Test
@@ -49,16 +41,15 @@ public class AuthorizationPageTests extends TestBase {
     @DisplayName("Тестирование авторизации с пустыми значениями логина и пароля")
     void unsuccessfulAuthWithEmptyDataTest() {
         authScreen.setSettings(
-                        testData.baseUrl,
-                        testData.deviceId,
-                        testData.apiKey,
-                        testData.parkId)
+                        settingsData.getBaseUrl(),
+                        settingsData.getDeviceId(),
+                        settingsData.getKey(),
+                        settingsData.getParkId())
                 .setEmployeePhone("")
                 .setEmployeePassword("")
                 .clickLoginButton();
 
         step("Проверить, что кнопка Авторизоваться неактивна", () ->
-                assertThat(authScreen.LOGIN_BUTTON.isEnabled())
-                        .isFalse());
+                authScreen.checkLoginBtnIsNotEnabled());
     }
 }

@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id "io.qameta.allure" version "2.9.6"
+    id "io.freefair.lombok" version "8.10.2"
 }
 
 group = 'com.mrnatsumi8'
@@ -16,10 +17,10 @@ def allureVersion = "2.17.3",
     restAssured = "4.5.1",
     junitVersion = "5.10.0",
     slf4jVersion = "1.7.32",
-    javafakerVersion = "1.0.2",
     assertjVersion = "3.26.3",
     commonsIoVersion = "2.11.0",
-    ownerVersion = "1.0.12"
+    ownerVersion = "1.0.12",
+    jacksonVersion = "2.17.2"
 
 
 allure {
@@ -47,7 +48,8 @@ dependencies {
             "org.assertj:assertj-core:$assertjVersion",
             "commons-io:commons-io:$commonsIoVersion",
             "org.aeonbits.owner:owner:$ownerVersion",
-            "com.github.javafaker:javafaker:$javafakerVersion"
+            "com.fasterxml.jackson.core:jackson-core:$jacksonVersion",
+            "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
     )
     testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:junitVersion')
 }

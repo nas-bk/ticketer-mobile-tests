@@ -7,16 +7,18 @@ import drivers.BrowserstackDriver;
 import drivers.LocalDriver;
 import helpers.Attach;
 import io.qameta.allure.selenide.AllureSelenide;
+import models.SettingsModel;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static com.codeborne.selenide.Selenide.open;
+import static helpers.FileReader.readSettingsJson;
 
 public class TestBase {
-    TestData testData = new TestData();
     public static String deviceHost = System.getProperty("deviceHost");
+    public static SettingsModel settingsData = new SettingsModel();
 
     @BeforeAll
     static void beforeAll() {
@@ -32,26 +34,26 @@ public class TestBase {
         }
         Configuration.browserSize = null;
         Configuration.timeout = 30000;
+        settingsData = readSettingsJson("settingsData.json");
+
     }
 
     @BeforeEach
-    void beforeEach(){
+    void beforeEach() {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
         open();
     }
 
     @AfterEach
-    void addAttachments(){
+    void addAttachments() {
         String sessionId = Selenide.sessionId().toString();
         Attach.screenshotAs("last screenshot" + sessionId);
         Attach.pageSource();
 
         closeWebDriver();
 
-        switch (deviceHost) {
-            case "browserstack":
-                Attach.addVideo(sessionId);
-                break;
+        if (deviceHost.equals("browserstack")) {
+            Attach.addVideo(sessionId);
         }
     }
 }

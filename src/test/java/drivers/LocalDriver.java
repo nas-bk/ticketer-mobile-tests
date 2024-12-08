@@ -17,8 +17,7 @@ import static io.appium.java_client.remote.AutomationName.ANDROID_UIAUTOMATOR2;
 import static io.appium.java_client.remote.MobilePlatform.ANDROID;
 
 public class LocalDriver implements WebDriverProvider {
-
-    public static LocalMobileConfig localConfig = ConfigFactory.create(LocalMobileConfig.class, System.getProperties());
+    public static final LocalMobileConfig localConfig = ConfigFactory.create(LocalMobileConfig.class, System.getProperties());
 
     @Nonnull
     @Override

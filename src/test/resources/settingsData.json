@@ -1,0 +1,10 @@
+{
+  "baseUrl": "http://127.0.0.1",
+  "deviceId": "TK1",
+  "key": "9e44e2416-98be-42333",
+  "parkId" : "DK2",
+  "employee": {
+    "phone": "71112223344",
+    "password": "S–P@t1bO~"
+  }
+}

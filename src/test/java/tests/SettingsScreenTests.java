@@ -9,27 +9,24 @@ import org.junit.jupiter.api.Test;
 import screen.SettingsScreen;
 
 import static io.qameta.allure.Allure.step;
-import static org.assertj.core.api.Assertions.assertThat;
 
 @Feature("Тестирование стартовой страницы настроек после запуска приложения")
 public class SettingsScreenTests extends TestBase {
-    SettingsScreen settingsScreen = new SettingsScreen();
+    final SettingsScreen settingsScreen = new SettingsScreen();
 
     @Test
     @Owner("Bochkareva Anastasia")
     @Severity(SeverityLevel.NORMAL)
     @DisplayName("Тестирование сохранение настроек с незаполненным обязательным полем")
-    void unclickableButtonIfSettingsWasEmpty() {
-
+    void NotClickableButtonIfSettingsWasEmpty() {
         step("Ввести значения полей deviceId, apiKey, parkId.", () ->
                 settingsScreen.setBaseUrl("")
-                        .setDeviceId(testData.deviceId)
-                        .setApiKey(testData.apiKey)
-                        .setParkId(testData.parkId));
+                        .setDeviceId(settingsData.getDeviceId())
+                        .setApiKey(settingsData.getKey())
+                        .setParkId(settingsData.getParkId()));
 
         step("Проверить неактивность кнопки Сохранить", () ->
-                assertThat(settingsScreen.SAVE_BUTTON.isEnabled())
-                        .isFalse());
+                settingsScreen.checkSaveBtnIsNotEnabled());
     }
 
     @Test
@@ -40,7 +37,6 @@ public class SettingsScreenTests extends TestBase {
         settingsScreen.clickUpdateBtn();
 
         step("Проверить открытие popup", () ->
-                assertThat(settingsScreen.UPDATE_POPUP.isDisplayed())
-                        .isTrue());
+                settingsScreen.checkUpdatePopupIsDisplayed());
     }
 }
