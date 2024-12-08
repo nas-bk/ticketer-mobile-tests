@@ -64,7 +64,7 @@
 Для запуска локально и удаленно возможно использование команды:
 
 ```
-./gradlew clean test -DdeviceHost=emulation
+./gradlew clean test -DdeviceHost=<deviceHost>
 ```
 **Важно!** Для удаленного запуска предварительно должны быть заполнены переменные *userName* и *key* в файле *browserstack.properties*. Иначе используется следующая команда:
 
